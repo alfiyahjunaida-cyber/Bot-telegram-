@@ -3,261 +3,114 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>bot tele hosting free by kimz 🗿</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<title>KIMZ HOSTING BOT TELE FREE</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
-  *{margin:0;padding:0;box-sizing:border-box;font-family:'Plus Jakarta Sans',Arial,sans-serif}
-  body{
-    background:#050807;
-    background-image:
-      radial-gradient(circle at 20% 10%, rgba(0,255,136,0.18) 0%, transparent 40%),
-      radial-gradient(circle at 90% 90%, rgba(0,180,255,0.15) 0%, transparent 40%),
-      radial-gradient(circle at 50% 50%, rgba(0,255,136,0.05) 0%, transparent 60%);
-    color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;overflow-x:hidden;
-  }
-  body::before{
-    content:'';position:fixed;inset:0;
-    background-image:linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size:40px 40px;pointer-events:none;
-  }
-  .wrap{width:100%;max-width:480px;position:relative;z-index:1}
-  .top{ text-align:center;margin-bottom:18px; animation:fadeDown .6s ease both }
-  .logo{
-    width:68px;height:68px;margin:0 auto 12px;border-radius:20px;
-    background:linear-gradient(135deg,#00ff88,#00b4ff);
-    display:flex;align-items:center;justify-content:center;font-size:34px;
-    box-shadow:0 0 0 6px rgba(0,255,136,0.12), 0 10px 30px rgba(0,255,136,0.4);
-    animation:float 3s ease-in-out infinite;
-  }
-  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-  @keyframes fadeDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
-  @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-  .badge{
-    display:inline-flex;align-items:center;gap:6px;
-    background:rgba(0,255,136,0.12);border:1px solid rgba(0,255,136,0.4);color:#00ff88;
-    padding:6px 12px;border-radius:100px;font-size:11px;font-weight:800;letter-spacing:1px;
-  }
-  .badge i{width:7px;height:7px;background:#00ff88;border-radius:50%;display:inline-block;box-shadow:0 0 10px #00ff88;animation:blink 1.2s infinite}
-  @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-  h1{font-size:30px;line-height:1.05;margin:14px 0 8px;font-weight:800;letter-spacing:-0.5px}
-  h1 span{background:linear-gradient(90deg,#00ff88,#00e5ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-  .subtitle{color:#a8b3ad;font-size:14px;line-height:1.6}
-  .subtitle b{color:#fff}
-  .box{
-    margin-top:20px;background:rgba(20,26,22,0.85);backdrop-filter:blur(16px);
-    border:1px solid rgba(255,255,255,0.08);border-radius:24px;padding:24px;
-    box-shadow:0 20px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06);
-    animation:fadeUp .6s .1s ease both;
-  }
-  .step{display:flex;gap:12px;align-items:flex-start;margin-bottom:18px;text-align:left}
-  .num{
-    min-width:32px;height:32px;border-radius:10px;background:#00ff88;color:#000;font-weight:800;
-    display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 4px 14px rgba(0,255,136,0.4);
-  }
-  .step b{font-size:14px;display:block}
-  .step p{font-size:12px;color:#9aa8a0;margin-top:2px;line-height:1.5}
-  label{font-size:12px;font-weight:700;color:#c8d1ca;letter-spacing:.3px;display:block;margin:0 0 7px}
-  .input-wrap{position:relative;margin-bottom:16px}
-  .input-wrap span{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:18px;opacity:.8}
-  input{
-    width:100%;padding:14px 14px 14px 44px;border-radius:14px;
-    border:1px solid #2a332e;background:#0c100d;color:#fff;font-size:14px;outline:none;transition:.2s;
-  }
-  input:focus{border-color:#00ff88;box-shadow:0 0 0 3px rgba(0,255,136,0.15);background:#10150f}
-  input::placeholder{color:#5a665f}
-  .eye{
-    position:absolute;right:10px;top:50%;transform:translateY(-50%);
-    background:#222b26;border:1px solid #333;color:#fff;padding:6px 10px;border-radius:10px;cursor:pointer;font-size:12px;width:auto;margin:0;
-  }
-  .eye:hover{background:#2e3a32}
-  .webhook-preview{
-    background:#0a0f0c;border:1px dashed #2e3a32;border-radius:12px;padding:10px 12px;
-    font-size:11px;color:#8a9a90;text-align:left;word-break:break-all;line-height:1.5;margin-bottom:16px;
-  }
-  .webhook-preview b{color:#00ff88}
-  .grup{
-    display:flex;align-items:center;gap:10px;background:rgba(0,255,136,0.08);
-    border:1px solid rgba(0,255,136,0.25);border-radius:14px;padding:12px 14px;text-align:left;
-  }
-  .grup .icon{width:38px;height:38px;border-radius:12px;background:#00ff88;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-  .grup b{font-size:13px}
-  .grup p{font-size:11px;color:#9ab0a2;margin-top:2px}
-  .grup code{background:#000;padding:2px 6px;border-radius:6px;color:#00ff88;font-size:11px}
-  button.main{
-    width:100%;padding:16px;border:none;border-radius:16px;margin-top:20px;cursor:pointer;
-    background:linear-gradient(90deg,#00ff88,#00e5ff);color:#000;font-weight:800;font-size:16px;
-    box-shadow:0 10px 25px rgba(0,255,136,0.35);transition:.2s;display:flex;align-items:center;justify-content:center;gap:8px;
-  }
-  button.main:hover{transform:translateY(-1px);box-shadow:0 14px 30px rgba(0,255,136,0.45)}
-  button.main:active{transform:translateY(1px)}
-  button.main:disabled{opacity:.6;cursor:not-allowed;transform:none}
-  .features{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:16px}
-  .feat{background:#0e130f;border:1px solid #222b26;border-radius:14px;padding:12px 8px;text-align:center}
-  .feat div{font-size:20px}
-  .feat b{font-size:11px;display:block;margin-top:6px}
-  .feat span{font-size:10px;color:#8a9a90}
-  #status{margin-top:16px;padding:14px;border-radius:14px;display:none;text-align:left;font-size:13px;white-space:pre-wrap;word-break:break-all;line-height:1.6}
-  .ok{background:#002a16;border:1px solid #00ff88;color:#d6ffe8}
-  .err{background:#2a0000;border:1px solid #ff5555;color:#ffd6d6}
-  .log{margin-top:12px;text-align:left;background:#000;border:1px solid #1e2620;padding:12px;border-radius:14px;font-size:12px;max-height:160px;overflow:auto;display:none;line-height:1.7}
-  .log b{color:#00ff88}
-  .how{
-    margin-top:16px;background:#0e130f;border:1px solid #222b26;border-radius:16px;padding:16px;text-align:left;
-  }
-  .how b{font-size:13px}
-  .how ol{margin:10px 0 0 16px;font-size:12px;color:#a8b3ad;line-height:1.8}
-  .how ol b{color:#fff;font-size:12px}
-  .footer{margin-top:18px;text-align:center;font-size:12px;color:#6a7a70}
-  .footer b{color:#00ff88}
-  .footer a{color:#00e5ff;text-decoration:none}
-  @media(max-width:480px){h1{font-size:26px}.box{padding:20px}}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Plus Jakarta Sans',sans-serif}
+body{background:#05050a;color:#fff;overflow-x:hidden}
+.glow{position:fixed;width:500px;height:500px;border-radius:50%;filter:blur(120px);opacity:.45;z-index:0}
+.g1{background:#7c3aed;top:-150px;left:-100px}
+.g2{background:#06b6d4;bottom:-150px;right:-100px}
+.wrap{position:relative;z-index:2;max-width:1100px;margin:auto;padding:0 20px}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;line-height:1.1}
+.logo .kotak{width:42px;height:42px;min-width:42px;background:linear-gradient(135deg,#a78bfa,#22d3ee);border-radius:13px;display:grid;place-items:center;font-size:22px;box-shadow:0 0 30px #a78bfa88}
+.logo small{font-size:10px;color:#a78bfa;letter-spacing:1px}
+.btn-top{background:#fff;color:#000;padding:11px 18px;border-radius:999px;font-weight:800;border:none;cursor:pointer;font-size:13px}
+.hero{text-align:center;padding:45px 0 25px}
+.pill{display:inline-flex;align-items:center;gap:8px;background:#ffffff12;border:1px solid #ffffff25;padding:8px 14px;border-radius:999px;font-size:12px;font-weight:700}
+.dot{width:8px;height:8px;background:#22c55e;border-radius:50%;box-shadow:0 0 10px #22c55e}
+.hero h1{font-size:44px;line-height:.95;letter-spacing:-2px;margin-top:20px}
+.hero h1 i{font-style:normal;background:linear-gradient(90deg,#c4b5fd,#67e8f9,#f0abfc);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:#a1a1aa;margin:18px auto 0;max-width:560px;line-height:1.7;font-size:14px}
+.cta{margin-top:24px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn1{background:linear-gradient(90deg,#8b5cf6,#06b6d4);border:none;color:#fff;padding:15px 26px;border-radius:999px;font-weight:800;font-size:15px;cursor:pointer;box-shadow:0 10px 30px #7c3aed66}
+.btn2{background:#ffffff10;border:1px solid #ffffff25;color:#fff;padding:15px 26px;border-radius:999px;font-weight:700;font-size:15px;cursor:pointer}
+.mock{margin:30px auto 0;max-width:720px;background:rgba(255,255,255,.08);backdrop-filter:blur(20px);border:1px solid #ffffff22;border-radius:22px;padding:14px;text-align:left}
+.mock-top{display:flex;gap:6px;padding:4px 4px 12px}
+.mock-top span{width:11px;height:11px;border-radius:50%;display:block}
+.mock-url{background:#00000055;border:1px solid #ffffff15;border-radius:12px;padding:11px 14px;font-size:13px;color:#d1d5db;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.mock-url b{color:#4ade80}
+.mock-body{padding:16px 6px 8px}
+.mock-body h3{font-size:21px}
+.mock-body p{font-size:13px;color:#a1a1aa;margin-top:6px}
+.fitur{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:28px 0}
+.f{background:linear-gradient(180deg,#ffffff12,#ffffff04);border:1px solid #ffffff14;border-radius:20px;padding:20px}
+.f span{font-size:26px}
+.f h4{margin:10px 0 6px;font-size:15px}
+.f p{font-size:12.5px;color:#a1a1aa;line-height:1.6}
+.tools{margin:10px 0 28px}
+.tools h2{font-size:24px;text-align:center}
+.tools p{font-size:13px;color:#a1a1aa;text-align:center;margin-top:6px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.card{background:#ffffff08;border:1px solid #ffffff12;border-radius:20px;padding:18px}
+.card .ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:22px;background:#7c3aed33}
+.card h3{margin:12px 0 5px;font-size:15px}
+.card p{font-size:12.5px;color:#a1a1aa;line-height:1.5}
+.card button{margin-top:14px;width:100%;padding:11px;border:none;border-radius:12px;background:#fff;font-weight:800;cursor:pointer}
+.bawah{background:linear-gradient(90deg,#7c3aed,#06b6d4);border-radius:24px;padding:28px 22px;text-align:center;margin-bottom:20px}
+.bawah h2{font-size:23px;line-height:1.2}
+.bawah p{font-size:13px;opacity:.9;margin-top:8px}
+.bawah button{margin-top:16px;background:#000;color:#fff;border:none;padding:13px 24px;border-radius:999px;font-weight:800;cursor:pointer}
+.footer{text-align:center;color:#52525b;font-size:12px;padding:0 0 30px;line-height:1.7}
+@media(min-width:700px){.hero h1{font-size:68px}.fitur{grid-template-columns:repeat(4,1fr)}.grid{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
 <body>
+<div class="glow g1"></div>
+<div class="glow g2"></div>
 <div class="wrap">
-  <div class="top">
-    <div class="logo">🤖</div>
-    <span class="badge"><i></i> FREE HOSTING • ONLINE 24 JAM • BY KIMZ</span>
-    <h1>Bot Tele Hosting<br><span>Free by Kimz 🗿</span></h1>
-    <p class="subtitle">Isi <b>Token Bot</b> lu, klik <b>JALAN</b>, bot langsung jalan!<br>Gratis, tanpa server, tanpa ribet!</p>
-  </div>
+<div class="nav">
+<div class="logo"><div class="kotak">🗿</div><div>KIMZ HOSTING<br><small>BOT TELE FREE</small></div></div>
+<button class="btn-top" onclick="keBot()">Buka Bot →</button>
+</div>
 
-  <div class="box">
-    <div class="step">
-      <div class="num">1</div>
-      <div><b>Token Bot Lu</b><p>Dari @BotFather. Token nya aman, cuma ke simpen di HP lu + server lu sendiri.</p></div>
-    </div>
+<div class="hero">
+<div class="pill"><div class="dot"></div> KIMZ HOSTING BOT TELE FREE • ONLINE</div>
+<h1>KIMZ HOSTING<br><i>BOT TELE FREE</i></h1>
+<p>Hosting web GRATIS by Kimz! Kirim file HTML ke Bot Telegram, langsung jadi link web! Nama acak otomatis! Tanpa VPS, tanpa ribet!</p>
+<div class="cta">
+<button class="btn1" onclick="keBot()">🚀 Deploy Sekarang - Gratis</button>
+<button class="btn2" onclick="cara()">📖 Cara Pakai</button>
+</div>
+</div>
 
-    <label>🔑 TOKEN BOT LU (DARI @BOTFATHER)</label>
-    <div class="input-wrap">
-      <span>🤖</span>
-      <input id="token" type="password" placeholder="123456789:AAHxxxx...">
-      <button type="button" class="eye" onclick="toggleToken()">👁️ Liat</button>
-    </div>
+<div class="mock">
+<div class="mock-top"><span style="background:#ff5f57"></span><span style="background:#febc2e"></span><span style="background:#28c840"></span></div>
+<div class="mock-url"><span>🔒 kimz-a1b2c3.vercel.app</span><b>● LIVE</b></div>
+<div class="mock-body"><h3>Web Lu Langsung Jadi! 🎉</h3><p>Ini contoh web hasil deploy dari KIMZ HOSTING BOT TELE FREE. Lu kirim HTML, 5 detik langsung jadi link kayak gini!</p></div>
+</div>
 
-    <div class="step">
-      <div class="num">2</div>
-      <div><b>Link Vercel Lu</b><p>Link project Vercel lu. Nanti otomatis jadi webhook. Gak usah tambah /api/index.js manual!</p></div>
-    </div>
+<div class="fitur">
+<div class="f"><span>⚡</span><h4>Super Cepat</h4><p>5 detik langsung jadi web, gak pake loading lama!</p></div>
+<div class="f"><span>💸</span><h4>100% FREE</h4><p>Gratis pol! Tanpa bayar, tanpa langganan!</p></div>
+<div class="f"><span>🎲</span><h4>Nama Acak</h4><p>Nama web acak otomatis: kimz-xxxxxx!</p></div>
+<div class="f"><span>📱</span><h4>Via Telegram</h4><p>Cuma dari HP, kirim file, jadi!</p></div>
+</div>
 
-    <label>🔗 LINK VERCEL LU (WEBHOOK)</label>
-    <div class="input-wrap">
-      <span>🌐</span>
-      <input id="webhook" type="text" placeholder="https://tolls-deployer.vercel.app" style="padding-left:44px">
-    </div>
-    <div class="webhook-preview">Nanti webhook jadi:<br><b id="webhookPreview">https://.../api/index.js</b></div>
+<div class="tools">
+<h2>Tools Gratis Lainnya</h2>
+<p>Semua dari KIMZ HOSTING BOT TELE FREE</p>
+<div class="grid">
+<div class="card"><div class="ic">🚀</div><h3>Deploy HTML</h3><p>Kirim .html jadi web!</p><button onclick="keBot()">Deploy →</button></div>
+<div class="card"><div class="ic">🔗</div><h3>Shortlink</h3><p>Link panjang jadi pendek!</p><button onclick="keBot()">Buka →</button></div>
+<div class="card"><div class="ic">📷</div><h3>QR Generator</h3><p>Bikin QR dari link!</p><button onclick="keBot()">Buka →</button></div>
+<div class="card"><div class="ic">🔑</div><h3>Password Gen</h3><p>Password kuat anti hack!</p><button onclick="keBot()">Buka →</button></div>
+</div>
+</div>
 
-    <div class="step">
-      <div class="num">3</div>
-      <div><b>Grup Log</b><p>Setiap bot yang jalan, langsung ke log di grup ini. Biar ketauan kalo ada yang iseng.</p></div>
-    </div>
+<div class="bawah">
+<h2>Gas Deploy Sekarang Wok! 🗿</h2>
+<p>KIMZ HOSTING BOT TELE FREE - Hosting gratis paling gacor di Gresik!</p>
+<button onclick="keBot()">Buka Bot Telegram →</button>
+</div>
 
-    <div class="grup">
-      <div class="icon">📦</div>
-      <div><b>Grup Log Otomatis</b><p>Udah ke-isi! <code>-1004487166809</code> • Gak bisa di ubah!</p></div>
-      <div style="margin-left:auto;font-size:20px">✅</div>
-    </div>
-
-    <button id="btn" class="main" onclick="jalanin()">🚀 JALANIN BOT SEKARANG!</button>
-
-    <div class="features">
-      <div class="feat"><div>⚡</div><b>INSTAN</b><span>10 detik jalan</span></div>
-      <div class="feat"><div>🆓</div><b>100% FREE</b><span>Tanpa bayar</span></div>
-      <div class="feat"><div>🛡️</div><b>AMAN</b><span>Token private</span></div>
-    </div>
-
-    <div id="status"></div>
-    <div id="log" class="log"></div>
-
-    <div class="how">
-      <b>❓ Cara dapet token:</b>
-      <ol>
-        <li>Buka Telegram → Cari <b>@BotFather</b></li>
-        <li>Ketik <b>/mybots</b> → Pilih bot lu</li>
-        <li>Klik <b>API Token</b> → <b>Copy</b></li>
-        <li>Paste di atas, klik <b>JALANIN BOT!</b></li>
-      </ol>
-    </div>
-  </div>
-
-  <div class="footer">Made with ❤️ by <b>kimz</b> • <a href="#">Tolls Deployer Bot</a><br><span style="font-size:11px">© 2026 Kimz Hosting • Free Forever 🗿</span></div>
+<div class="footer"><b style="color:#fff">KIMZ HOSTING BOT TELE FREE 🗿</b><br>Made by Kimz • Gresik, East Java • © 2026 • 100% FREE</div>
 </div>
 
 <script>
-function toggleToken(){
-  const i = document.getElementById('token');
-  const isPass = i.type === 'password';
-  i.type = isPass ? 'text' : 'password';
-  document.querySelector('.eye').innerText = isPass ? '🙈 Sembunyi' : '👁️ Liat';
-}
-function log(msg){
-  const el = document.getElementById('log');
-  el.style.display = 'block';
-  el.innerHTML += msg + '<br>';
-}
-function show(msg, ok){
-  const s = document.getElementById('status');
-  s.style.display = 'block';
-  s.className = ok ? 'ok' : 'err';
-  s.innerText = msg;
-}
-function updatePreview(){
-  let w = document.getElementById('webhook').value.trim().replace(/\/$/,'');
-  if(!w) w = 'https://...';
-  if(w !== 'https://...' && !w.endsWith('/api/index.js')) w = w + '/api/index.js';
-  document.getElementById('webhookPreview').innerText = w;
-}
-document.getElementById('webhook').addEventListener('input', updatePreview);
-
-async function jalanin(){
-  const token = document.getElementById('token').value.trim();
-  let webhook = document.getElementById('webhook').value.trim();
-  const btn = document.getElementById('btn');
-  if(!token) return alert('Isi token dulu wok! 🗿');
-  if(!webhook) return alert('Isi link Vercel lu dulu wok!');
-  webhook = webhook.replace(/\/$/, '');
-  if(!webhook.endsWith('/api/index.js')) webhook = webhook + '/api/index.js';
-  document.getElementById('webhook').value = webhook;
-  updatePreview();
-
-  btn.disabled = true;
-  btn.innerHTML = '⏳ LAGI JALANIN... SABAR WOK!';
-  document.getElementById('log').innerHTML = '';
-  document.getElementById('status').style.display = 'none';
-  log('🔌 <b>Lagi nyambung ke Telegram...</b>');
-  try{
-    let r = await fetch(`https://api.telegram.org/bot${token}/getMe`);
-    let j = await r.json();
-    if(!j.ok) throw new Error('Token salah wok! ' + j.description);
-    log(`✅ <b>Token bener!</b> Bot: @${j.result.username}`);
-    log('💾 <b>Lagi nyimpen token ke server...</b>');
-    let rSave = await fetch(`/api/index.js?setToken=${encodeURIComponent(token)}`);
-    let jSave = await rSave.json();
-    if(!jSave.ok) throw new Error('Gagal simpen token ke server: ' + (jSave.error || ''));
-    log(`✅ <b>Token ke simpen!</b> Total bot jalan: ${jSave.totalBot}`);
-    log(`🔗 <b>Lagi set webhook ke:</b> ${webhook}`);
-    let r2 = await fetch(`https://api.telegram.org/bot${token}/setWebhook?url=${encodeURIComponent(webhook)}`);
-    let j2 = await r2.json();
-    if(!j2.ok) throw new Error('Gagal set webhook: ' + j2.description);
-    log(`✅ <b>Webhook ke-set!</b>`);
-    localStorage.setItem('tolls_token', token);
-    localStorage.setItem('tolls_webhook', webhook);
-    show(`✅ BERHASIL WOK! BOT UDAH JALAN! 🗿🔥\n\n🤖 Bot: @${j.result.username}\n🔗 Webhook: ${webhook}\n📦 Grup Log: -1004487166809\n\nSekarang buka Telegram, chat bot lu, ketik /start!`, true);
-    btn.innerHTML = '✅ BOT UDAH JALAN! GAS! 🗿';
-  }catch(e){
-    show(`❌ GAGAL WOK!\n${e.message}`, false);
-    log('❌ ' + e.message);
-    btn.disabled = false;
-    btn.innerHTML = '🚀 JALANIN BOT SEKARANG!';
-  }
-}
-window.onload = () => {
-  const t = localStorage.getItem('tolls_token');
-  const w = localStorage.getItem('tolls_webhook');
-  if(t) document.getElementById('token').value = t;
-  if(w) document.getElementById('webhook').value = w;
-  updatePreview();
-}
+function keBot(){alert('Buka Telegram, cari: KIMZ HOSTING BOT TELE FREE 🗿');}
+function cara(){alert('Cara Pakai KIMZ HOSTING BOT TELE FREE:\n\n1. Buka Bot Telegram\n2. Klik /deploy\n3. Kirim file .html lu\n4. Jadi link https://kimz-xxxxxx.vercel.app\n\nGampang kan wok! 🗿');}
 </script>
 </body>
 </html>
