@@ -1,7 +1,16 @@
-// BOT DEPLOY BY KIMZ 🗿 - NAMA ACAK OTOMATIS!
+// KIMZ HOSTING BOT TELE FREE 🗿
+// Deploy HTML -> Vercel, Nama Acak Otomatis, Custom Grup ID!
 
 const { Telegraf } = require('telegraf');
 const fetch = require('node-fetch');
+
+// ===== SETTING LU DISINI WOK! =====
+// Ganti sama Grup ID lu dari HTML tadi!
+const GROUP_ID = "-1004487166809"; // <-- GANTI INI SAMA GRUP ID LU!
+const BOT_NAME = "KIMZ HOSTING BOT TELE FREE";
+const OWNER = "Kimz";
+const BOT_USERNAME = "@KimzHostingFreeBot";
+// ===================================
 
 let hostedBots = new Map();
 let currentBotToken = process.env.BOT_TOKEN || '';
@@ -27,13 +36,10 @@ function getVercelToken() {
   return { token: k.key, nomor: nomor, by: k.by, dipakai: k.dipakai };
 }
 
-// BIKIN NAMA ACAK!
 function bikinNamaAcak() {
   const huruf = 'abcdefghijklmnopqrstuvwxyz0123456789';
   let acak = '';
-  for (let i = 0; i < 6; i++) {
-    acak += huruf[Math.floor(Math.random() * huruf.length)];
-  }
+  for (let i = 0; i < 6; i++) acak += huruf[Math.floor(Math.random() * huruf.length)];
   return `kimz-${acak}`;
 }
 
@@ -45,7 +51,6 @@ async function deployBersih(fileBuffer, projectName, token) {
       body: JSON.stringify({ name: projectName, framework: null })
     });
   } catch (e) {}
-
   const res = await fetch(
     `https://api.vercel.com/v13/deployments?project=${projectName}&skipAutoDetectionConfirmation=1`,
     {
@@ -64,14 +69,33 @@ async function deployBersih(fileBuffer, projectName, token) {
   return `https://${projectName}.vercel.app`;
 }
 
+async function kirimKeGrup(botToken, pesan) {
+  if (!GROUP_ID || GROUP_ID === "-1004487166809" && false) return;
+  try {
+    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: GROUP_ID, text: pesan, parse_mode: 'HTML' })
+    });
+  } catch (e) { console.log('Gagal kirim ke grup:', e.message); }
+}
+
 function makeBot(token) {
   const bot = new Telegraf(token);
 
   bot.start((ctx) => {
     return ctx.reply(
-      `👋 Halo ${ctx.from.first_name}!\n🤖 Bot deploy by kimz! 🗿\n\nKirim aja file .html lu!\nLangsung jadi web! Nama nya acak otomatis!\n\nKetik /deploy dulu wok!`,
+      `👋 Halo ${ctx.from.first_name}!\n` +
+      `🤖 Selamat Datang di ${BOT_NAME}! 🗿\n\n` +
+      `Hosting web GRATIS by ${OWNER}!\n` +
+      `Kirim file HTML lu, langsung jadi link web!\n\n` +
+      `✅ 100% FREE\n` +
+      `✅ Nama web acak otomatis: kimz-xxxxxx\n` +
+      `✅ Notif deploy masuk ke Grup ID: ${GROUP_ID}\n\n` +
+      `Klik [ 🚀 DEPLOY WEB ] di bawah wok!`,
       { reply_markup: { inline_keyboard: [
         [{ text: '🚀 DEPLOY WEB (Nama Acak)', callback_data: 'deploy' }],
+        [{ text: '⚙️ INFO GRUP ID', callback_data: 'infogrup' }],
         [{ text: '🔑 LIST KEY ∞', callback_data: 'listkey' }],
       ]}}
     );
@@ -80,14 +104,34 @@ function makeBot(token) {
   bot.action('deploy', (ctx) => {
     ctx.answerCbQuery();
     userState.set(ctx.from.id, { step: 'wait_file' });
-    return ctx.reply(`🚀 GAS DEPLOY!\nKirim file .html lu sekarang wok!\nNanti nama web nya acak otomatis! Contoh: kimz-a1b2c3.vercel.app`);
+    return ctx.reply(`🚀 GAS DEPLOY! - ${BOT_NAME}\nKirim file .html lu sekarang wok!\nNanti nama web nya acak otomatis! Contoh: kimz-a1b2c3.vercel.app\nNotif nya bakal masuk ke Grup ID: ${GROUP_ID}`);
+  });
+
+  bot.action('infogrup', (ctx) => {
+    ctx.answerCbQuery();
+    return ctx.reply(
+      `⚙️ SETTING ${BOT_NAME}\n\n` +
+      `🆔 Grup ID: ${GROUP_ID}\n` +
+      `🤖 Bot: ${BOT_USERNAME}\n` +
+      `👤 Owner: ${OWNER}\n\n` +
+      `Mau ganti Grup ID? Ganti di api/index.js bagian atas wok!\n` +
+      `const GROUP_ID = "-100xxxx";`
+    );
   });
 
   bot.action('listkey', (ctx) => { ctx.answerCbQuery(); return sendListKey(ctx); });
   bot.command('listkey', (ctx) => sendListKey(ctx));
   bot.command('deploy', (ctx) => {
     userState.set(ctx.from.id, { step: 'wait_file' });
-    return ctx.reply(`🚀 GAS DEPLOY!\nKirim file .html lu sekarang wok!`);
+    return ctx.reply(`🚀 GAS DEPLOY! Kirim file .html lu sekarang wok!`);
+  });
+
+  bot.command('setgroup', (ctx) => {
+    // Cuma owner yang bisa ganti grup ID dari bot!
+    const args = ctx.message.text.split(' ');
+    const newId = args[1];
+    if (!newId) return ctx.reply(`Cara: /setgroup -100123456789\nGrup ID sekarang: ${GROUP_ID}`);
+    return ctx.reply(`⚠️ Grup ID di bot ini di setting di index.js wok!\nGrup ID sekarang: ${GROUP_ID}\nYang lu kirim: ${newId}\n\nGanti di GitHub -> api/index.js -> const GROUP_ID = "${newId}";\nTerus Redeploy di Vercel!`);
   });
 
   bot.command('setkey', (ctx) => {
@@ -111,7 +155,6 @@ function makeBot(token) {
     return ctx.reply(`✅ Key ${type} ke-${index+1} by ${hapus.by} udah di hapus!`);
   });
 
-  // LANGSUNG DEPLOY PAS KIRIM FILE! GAK PERLU ISI NAMA!
   bot.on('document', async (ctx) => {
     const state = userState.get(ctx.from.id);
     if (!state || state.step !== 'wait_file') return ctx.reply(`Klik dulu [ 🚀 DEPLOY WEB ] wok!`);
@@ -130,14 +173,27 @@ function makeBot(token) {
       userState.delete(ctx.from.id);
 
       const link = await deployBersih(fileBuffer, projectName, keyInfo.token);
+
+      // Kirim notif ke Grup ID custom lu!
+      await kirimKeGrup(token,
+        `🚀 <b>DEPLOY BARU! - ${BOT_NAME}</b>\n\n` +
+        `👤 User: @${ctx.from.username || ctx.from.first_name}\n` +
+        `📦 File: ${doc.file_name}\n` +
+        `🔗 Link: ${link}\n` +
+        `🎲 Nama: ${projectName}\n` +
+        `🔑 Key Vercel ke-${keyInfo.nomor} by ${keyInfo.by}\n` +
+        `🆔 Grup ID: ${GROUP_ID}`
+      );
+
       return ctx.reply(
-        `✅ BERHASIL! 🎉\n\n` +
+        `✅ BERHASIL! 🎉 - ${BOT_NAME}\n\n` +
         `🔗 Link lu:\n${link}\n\n` +
         `📦 File: ${doc.file_name} -> Jadi index.html!\n` +
         `🎲 Nama Acak: ${projectName}\n` +
         `🔑 Pake Key Vercel ke-${keyInfo.nomor}\n` +
         `👤 Punya: ${keyInfo.by}\n` +
-        `📊 Key ini udah di pake: ${keyInfo.dipakai}x\n\n` +
+        `📊 Key ini udah di pake: ${keyInfo.dipakai}x\n` +
+        `🆔 Notif udah masuk ke Grup ID: ${GROUP_ID}\n\n` +
         `Buka link nya wok! Udah sama persis kayak HTML lu!`
       );
     } catch (e) { 
@@ -146,17 +202,16 @@ function makeBot(token) {
     }
   });
 
-  // Kalo user ngetik teks biasa, kasih tau cara nya
   bot.on('text', async (ctx) => {
     if (ctx.message.text.startsWith('/')) return;
-    return ctx.reply(`Kirim file .html nya aja wok! Gak perlu isi nama! Nama nya acak otomatis!\nKlik /deploy dulu!`);
+    return ctx.reply(`Kirim file .html nya aja wok! Gak perlu isi nama! Nama nya acak otomatis!\nKlik /deploy dulu!\n\n${BOT_NAME} 🗿`);
   });
 
   return bot;
 }
 
 function sendListKey(ctx) {
-  let pesan = `🔑 LIST KEY ∞ by kimz\n\n🚀 VERCEL (${keys.vercel.length} token):\n`;
+  let pesan = `🔑 LIST KEY ∞ - ${BOT_NAME}\n\n🚀 VERCEL (${keys.vercel.length} token):\n`;
   if (keys.vercel.length === 0) {
     pesan += `❌ Belum ada di memori!\n`;
     if (process.env.VERCEL_TOKEN_1) pesan += `✅ Key ke-1 dari Env (owner) - AKTIF!\n`;
@@ -164,7 +219,7 @@ function sendListKey(ctx) {
   pesan += `\n🤖 GEMINI (${keys.gemini.length} token):\n`;
   if (keys.gemini.length === 0) pesan += `❌ Belum ada!\n`;
   else keys.gemini.forEach((k,i) => { pesan += `${i+1}. ${k.key.slice(0,4)}***${k.key.slice(-4)} by ${k.by}\n`; });
-  pesan += `\nMau nyumbang? /setkey vercel TOKEN_LU`;
+  pesan += `\n🆔 Grup ID: ${GROUP_ID}\nMau nyumbang? /setkey vercel TOKEN_LU`;
   return ctx.reply(pesan);
 }
 
@@ -192,10 +247,10 @@ module.exports = async (req, res) => {
         await fetch(`https://api.telegram.org/bot${setToken}/sendMessage`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ chat_id: '-1004487166809', text: `🗿 Bot baru jalan!\n🤖 @${j.result.username}\nBy hosting free kimz!` })
+          body: JSON.stringify({ chat_id: GROUP_ID, text: `🗿 Bot baru jalan!\n🤖 ${BOT_NAME}\n@${j.result.username}\nBy hosting free kimz!\nGrup ID: ${GROUP_ID}` })
         });
       } catch (e) {}
-      return res.status(200).json({ ok: true, totalBot: hostedBots.size, username: j.result.username });
+      return res.status(200).json({ ok: true, totalBot: hostedBots.size, username: j.result.username, groupId: GROUP_ID });
     } catch (e) {
       return res.status(500).json({ ok: false, error: e.message });
     }
@@ -220,5 +275,5 @@ module.exports = async (req, res) => {
     return res.status(200).send('OK');
   }
 
-  return res.status(200).send('Bot jalan wok! 🗿');
+  return res.status(200).send(`${BOT_NAME} jalan wok! 🗿 Grup ID: ${GROUP_ID}`);
 };
