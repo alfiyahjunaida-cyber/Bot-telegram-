@@ -11,11 +11,10 @@ body{background:#05050a;color:#fff;overflow-x:hidden}
 .glow{position:fixed;width:520px;height:520px;border-radius:50%;filter:blur(130px);opacity:.5;z-index:0;pointer-events:none}
 .g1{background:#7c3aed;top:-160px;left:-120px}
 .g2{background:#06b6d4;bottom:-160px;right:-120px}
-.g3{background:#ec4899;top:50%;left:50%;width:300px;height:300px;opacity:.25;transform:translate(-50%,-50%)}
 .wrap{position:relative;z-index:2;max-width:1100px;margin:auto;padding:0 20px}
 .nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
 .logo{display:flex;align-items:center;gap:11px;font-weight:800;font-size:18px;line-height:1.1}
-.logo .kotak{width:44px;height:44px;min-width:44px;background:linear-gradient(135deg,#a78bfa,#22d3ee,#f472b6);border-radius:14px;display:grid;place-items:center;font-size:23px;box-shadow:0 0 35px #a78bfa88}
+.logo .kotak{width:44px;height:44px;min-width:44px;background:linear-gradient(135deg,#a78bfa,#22d3ee,#f472b6);border-radius:14px;display:grid;place-items:center;font-size:23px}
 .logo small{font-size:10px;color:#a78bfa;letter-spacing:1.2px}
 .btn-top{background:#fff;color:#000;padding:11px 18px;border-radius:999px;font-weight:800;border:none;cursor:pointer;font-size:13px}
 .hero{text-align:center;padding:40px 0 20px}
@@ -23,47 +22,40 @@ body{background:#05050a;color:#fff;overflow-x:hidden}
 .dot{width:8px;height:8px;background:#22c55e;border-radius:50%;box-shadow:0 0 10px #22c55e}
 .hero h1{font-size:42px;line-height:.95;letter-spacing:-2px;margin-top:18px}
 .hero h1 i{font-style:normal;background:linear-gradient(90deg,#c4b5fd,#67e8f9,#f9a8d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero p{color:#a1a1aa;margin:16px auto 0;max-width:560px;line-height:1.7;font-size:14px}
+.hero p{color:#a1a1aa;margin:16px auto 0;max-width:580px;line-height:1.7;font-size:14px}
 .cta{margin-top:22px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.btn1{background:linear-gradient(90deg,#8b5cf6,#06b6d4,#ec4899);border:none;color:#fff;padding:15px 26px;border-radius:999px;font-weight:800;font-size:15px;cursor:pointer;box-shadow:0 10px 30px #7c3aed66}
+.btn1{background:linear-gradient(90deg,#8b5cf6,#06b6d4,#ec4899);border:none;color:#fff;padding:15px 26px;border-radius:999px;font-weight:800;font-size:15px;cursor:pointer}
 .btn2{background:#ffffff10;border:1px solid #ffffff25;color:#fff;padding:15px 26px;border-radius:999px;font-weight:700;font-size:15px;cursor:pointer}
-.card-setting{margin:28px auto 0;max-width:720px;background:rgba(255,255,255,.08);backdrop-filter:blur(20px);border:1px solid #ffffff22;border-radius:24px;padding:22px;text-align:left;box-shadow:0 20px 60px #00000066}
+.card-setting{margin:28px auto 0;max-width:720px;background:rgba(255,255,255,.08);backdrop-filter:blur(20px);border:1px solid #ffffff22;border-radius:24px;padding:22px;text-align:left}
 .card-setting h3{font-size:19px}
 .card-setting p{font-size:13px;color:#a1a1aa;margin-top:6px;line-height:1.6}
-.label{font-size:12px;font-weight:700;color:#c4b5fd;margin:16px 0 7px;display:block;letter-spacing:.5px}
-.input{width:100%;background:#00000055;border:1px solid #ffffff22;border-radius:14px;padding:14px 15px;color:#fff;font-size:14px;outline:none}
+.label{font-size:12px;font-weight:700;color:#c4b5fd;margin:16px 0 7px;display:block}
+.input{width:100%;background:#00000055;border:1px solid #ffffff22;border-radius:14px;padding:14px 15px;color:#fff;font-size:13px;outline:none;font-family:monospace}
 .input:focus{border-color:#a78bfa}
-.input::placeholder{color:#52525b}
+.show{margin-top:8px;font-size:12px;color:#a78bfa;cursor:pointer;display:inline-block}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .btn-save{margin-top:18px;width:100%;background:linear-gradient(90deg,#8b5cf6,#06b6d4);border:none;color:#fff;padding:14px;border-radius:14px;font-weight:800;font-size:15px;cursor:pointer}
 .btn-copy{margin-top:10px;width:100%;background:#fff;border:none;color:#000;padding:13px;border-radius:14px;font-weight:800;font-size:14px;cursor:pointer}
-.preview{margin-top:14px;background:#00000066;border:1px solid #ffffff15;border-radius:14px;padding:14px;font-size:13px;line-height:1.7;color:#d1d5db}
+.btn-test{margin-top:10px;width:100%;background:#22c55e;border:none;color:#000;padding:13px;border-radius:14px;font-weight:800;font-size:14px;cursor:pointer}
+.preview{margin-top:14px;background:#00000066;border:1px solid #ffffff15;border-radius:14px;padding:14px;font-size:13px;line-height:1.7;color:#d1d5db;word-break:break-all}
 .preview b{color:#4ade80}
-.preview code{background:#ffffff15;padding:2px 7px;border-radius:6px;font-size:12px}
+.preview code{background:#ffffff15;padding:2px 7px;border-radius:6px;font-size:11px}
 .fitur{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:28px 0}
 .f{background:linear-gradient(180deg,#ffffff12,#ffffff04);border:1px solid #ffffff14;border-radius:20px;padding:20px}
 .f span{font-size:26px}
 .f h4{margin:10px 0 6px;font-size:15px}
 .f p{font-size:12.5px;color:#a1a1aa;line-height:1.6}
-.tools h2{font-size:24px;text-align:center}
-.tools p{font-size:13px;color:#a1a1aa;text-align:center;margin-top:6px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0 28px}
-.card{background:#ffffff08;border:1px solid #ffffff12;border-radius:20px;padding:18px}
-.card .ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:22px;background:#7c3aed33}
-.card h3{margin:12px 0 5px;font-size:15px}
-.card p{font-size:12.5px;color:#a1a1aa;line-height:1.5}
-.card button{margin-top:14px;width:100%;padding:11px;border:none;border-radius:12px;background:#fff;font-weight:800;cursor:pointer}
 .bawah{background:linear-gradient(90deg,#7c3aed,#06b6d4,#ec4899);border-radius:24px;padding:28px 22px;text-align:center;margin-bottom:20px}
-.bawah h2{font-size:23px;line-height:1.2}
+.bawah h2{font-size:23px}
 .bawah p{font-size:13px;opacity:.9;margin-top:8px}
 .bawah button{margin-top:16px;background:#000;color:#fff;border:none;padding:13px 24px;border-radius:999px;font-weight:800;cursor:pointer}
 .footer{text-align:center;color:#52525b;font-size:12px;padding:0 0 30px;line-height:1.7}
-@media(min-width:700px){.hero h1{font-size:68px}.fitur{grid-template-columns:repeat(4,1fr)}.grid{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:700px){.hero h1{font-size:68px}.fitur{grid-template-columns:repeat(4,1fr)}}
 @media(max-width:500px){.row{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<div class="glow g1"></div><div class="glow g2"></div><div class="glow g3"></div>
+<div class="glow g1"></div><div class="glow g2"></div>
 <div class="wrap">
 <div class="nav">
 <div class="logo"><div class="kotak">🗿</div><div>KIMZ HOSTING<br><small>BOT TELE FREE</small></div></div>
@@ -73,115 +65,117 @@ body{background:#05050a;color:#fff;overflow-x:hidden}
 <div class="hero">
 <div class="pill"><div class="dot"></div> KIMZ HOSTING BOT TELE FREE • ONLINE</div>
 <h1>KIMZ HOSTING<br><i>BOT TELE FREE</i></h1>
-<p>Hosting web GRATIS by Kimz! Deploy HTML jadi link Vercel dalam 5 detik! Nama acak otomatis! Bisa custom Grup ID lu sendiri!</p>
+<p>Hosting web GRATIS! Deploy HTML jadi link Vercel dalam 5 detik! Nama acak otomatis! Custom TOKEN BOT + GRUP ID lu sendiri!</p>
 <div class="cta">
 <button class="btn1" onclick="keBot()">🚀 Deploy Sekarang - Gratis</button>
-<button class="btn2" onclick="scrollKeSetting()">⚙️ Setting Grup ID</button>
+<button class="btn2" onclick="scrollKe()">⚙️ Setting Token Bot</button>
 </div>
 </div>
 
 <div class="card-setting" id="setting">
 <h3>⚙️ Setting KIMZ HOSTING BOT TELE FREE</h3>
-<p>Custom Grup ID lu disini wok! Nanti bot bakal kirim notif deploy ke grup lu! Di simpen otomatis di HP lu!</p>
+<p>Isi TOKEN BOT lu dari @BotFather! Bukan link! Token nya yang panjang itu wok! 🗿</p>
+
+<label class="label">🤖 TOKEN BOT TELEGRAM LU (Dari @BotFather)</label>
+<input class="input" id="botToken" type="password" placeholder="123456789:AAHxxx-xxxx-xxxx...">
+<span class="show" onclick="toggleToken()">👁️ Lihat / Sembunyiin Token</span>
 
 <label class="label">🆔 GRUP ID TELEGRAM LU</label>
-<input class="input" id="groupId" placeholder="Contoh: -1004487166809" value="-1004487166809">
-<p style="font-size:11px;margin-top:6px">Cara dapet ID: Masukkin bot @userinfobot ke grup lu, ketik /id</p>
+<input class="input" id="groupId" placeholder="-1004487166809" value="-1004487166809">
 
 <div class="row">
-<div><label class="label">🤖 USERNAME BOT</label><input class="input" id="botUser" placeholder="@KimzHostingFreeBot" value="@KimzHostingFreeBot"></div>
-<div><label class="label">👤 NAMA OWNER</label><input class="input" id="owner" placeholder="Kimz" value="Kimz"></div>
+<div><label class="label">🔑 TOKEN VERCEL LU</label><input class="input" id="vercelToken" type="password" placeholder="Token Vercel..."></div>
+<div><label class="label">👤 NAMA OWNER</label><input class="input" id="owner" placeholder="Kimz" value="Kimz" style="font-family:sans-serif"></div>
 </div>
 
-<label class="label">🔗 LINK BOT / GRUP LU</label>
-<input class="input" id="linkBot" placeholder="https://t.me/KimzHostingFreeBot" value="https://t.me/KimzHostingFreeBot">
-
 <button class="btn-save" onclick="simpan()">💾 SIMPAN SETTING</button>
+<button class="btn-test" onclick="testToken()">✅ CEK TOKEN BOT - APAKAH VALID?</button>
 
 <div class="preview" id="preview">
 <b>● PREVIEW SETTING LU:</b><br>
+Bot Token: <code id="pToken">Belum di isi!</code><br>
 Grup ID: <code id="pGroup">-1004487166809</code><br>
-Bot: <code id="pBot">@KimzHostingFreeBot</code><br>
-Owner: <code id="pOwner">Kimz</code><br>
-Link: <code id="pLink">https://t.me/KimzHostingFreeBot</code><br><br>
-<span style="color:#a1a1aa">Bot bakal kirim pesan ke Grup ID di atas tiap ada yang deploy! 🗿</span>
+Vercel Token: <code id="pVercel">Belum di isi!</code><br>
+Owner: <code id="pOwner">Kimz</code><br><br>
+<span style="color:#a1a1aa">Token di simpen cuma di HP lu! Gak ke kirim kemana-mana! Aman! 🗿</span>
 </div>
 
-<button class="btn-copy" onclick="copyConfig()">📋 Copy Config Buat index.js</button>
+<button class="btn-copy" onclick="copyConfig()">📋 Copy Config Buat Vercel / index.js</button>
 </div>
 
 <div class="fitur">
 <div class="f"><span>⚡</span><h4>Super Cepat</h4><p>5 detik langsung jadi web!</p></div>
-<div class="f"><span>💸</span><h4>100% FREE</h4><p>Gratis pol! Tanpa bayar!</p></div>
+<div class="f"><span>🤖</span><h4>Custom Token Bot</h4><p>Pake token bot lu sendiri!</p></div>
 <div class="f"><span>🎲</span><h4>Nama Acak</h4><p>kimz-xxxxxx otomatis!</p></div>
 <div class="f"><span>⚙️</span><h4>Custom Grup ID</h4><p>Notif masuk ke grup lu!</p></div>
 </div>
 
-<div class="tools">
-<h2>Tools Gratis Lainnya</h2>
-<p>Dari KIMZ HOSTING BOT TELE FREE</p>
-<div class="grid">
-<div class="card"><div class="ic">🚀</div><h3>Deploy HTML</h3><p>Kirim .html jadi web!</p><button onclick="keBot()">Deploy →</button></div>
-<div class="card"><div class="ic">🔗</div><h3>Shortlink</h3><p>Link panjang jadi pendek!</p><button onclick="keBot()">Buka →</button></div>
-<div class="card"><div class="ic">📷</div><h3>QR Generator</h3><p>Bikin QR dari link!</p><button onclick="keBot()">Buka →</button></div>
-<div class="card"><div class="ic">🔑</div><h3>Password Gen</h3><p>Password kuat anti hack!</p><button onclick="keBot()">Buka →</button></div>
-</div>
-</div>
-
 <div class="bawah">
 <h2>Gas Deploy Sekarang Wok! 🗿</h2>
-<p>KIMZ HOSTING BOT TELE FREE - Hosting gratis paling gacor di Gresik!</p>
+<p>KIMZ HOSTING BOT TELE FREE - Pake Token Bot Lu Sendiri!</p>
 <button onclick="keBot()">Buka Bot Telegram →</button>
 </div>
 
-<div class="footer"><b style="color:#fff">KIMZ HOSTING BOT TELE FREE 🗿</b><br>Grup ID: <span id="fGroup">-1004487166809</span> • Made by <span id="fOwner">Kimz</span> • © 2026 • 100% FREE</div>
+<div class="footer"><b style="color:#fff">KIMZ HOSTING BOT TELE FREE 🗿</b><br>Made by <span id="fOwner">Kimz</span> • © 2026 • 100% FREE • Token Aman!</div>
 </div>
 
 <script>
 function load(){
+let t = localStorage.getItem('kimz_bot_token') || '';
 let g = localStorage.getItem('kimz_group') || '-1004487166809';
-let b = localStorage.getItem('kimz_bot') || '@KimzHostingFreeBot';
+let v = localStorage.getItem('kimz_vercel') || '';
 let o = localStorage.getItem('kimz_owner') || 'Kimz';
-let l = localStorage.getItem('kimz_link') || 'https://t.me/KimzHostingFreeBot';
+document.getElementById('botToken').value = t;
 document.getElementById('groupId').value = g;
-document.getElementById('botUser').value = b;
+document.getElementById('vercelToken').value = v;
 document.getElementById('owner').value = o;
-document.getElementById('linkBot').value = l;
-updatePreview(g,b,o,l);
+updatePreview(t,g,v,o);
 }
-function updatePreview(g,b,o,l){
+function updatePreview(t,g,v,o){
+document.getElementById('pToken').textContent = t ? t.slice(0,8)+'***'+t.slice(-4)+' ('+t.length+' karakter)' : 'Belum di isi!';
 document.getElementById('pGroup').textContent = g;
-document.getElementById('pBot').textContent = b;
+document.getElementById('pVercel').textContent = v ? v.slice(0,4)+'***'+v.slice(-4) : 'Belum di isi!';
 document.getElementById('pOwner').textContent = o;
-document.getElementById('pLink').textContent = l;
-document.getElementById('fGroup').textContent = g;
 document.getElementById('fOwner').textContent = o;
 }
 function simpan(){
+let t = document.getElementById('botToken').value.trim();
 let g = document.getElementById('groupId').value.trim();
-let b = document.getElementById('botUser').value.trim();
+let v = document.getElementById('vercelToken').value.trim();
 let o = document.getElementById('owner').value.trim();
-let l = document.getElementById('linkBot').value.trim();
-if(!g) return alert('Isi Grup ID dulu wok! 🗿');
+if(!t) return alert('Isi TOKEN BOT dulu wok! 🗿\nBukan link! Token dari @BotFather!');
+if(!t.includes(':')) return alert('Token salah wok! Token harus ada : nya!\nContoh: 123456:AAHxxx...');
+localStorage.setItem('kimz_bot_token',t);
 localStorage.setItem('kimz_group',g);
-localStorage.setItem('kimz_bot',b);
+localStorage.setItem('kimz_vercel',v);
 localStorage.setItem('kimz_owner',o);
-localStorage.setItem('kimz_link',l);
-updatePreview(g,b,o,l);
-alert('✅ BERHASIL DISIMPEN WOK! 🗿🔥\nGrup ID: '+g+'\nBot: '+b);
+updatePreview(t,g,v,o);
+alert('✅ BERHASIL DISIMPEN WOK! 🗿🔥\nToken Bot: '+t.slice(0,8)+'***\nGrup ID: '+g);
+}
+function toggleToken(){
+let el = document.getElementById('botToken');
+el.type = el.type === 'password' ? 'text' : 'password';
+}
+async function testToken(){
+let t = document.getElementById('botToken').value.trim();
+if(!t) return alert('Isi TOKEN BOT dulu wok!');
+try{
+let r = await fetch('https://api.telegram.org/bot'+t+'/getMe');
+let j = await r.json();
+if(j.ok) alert('✅ TOKEN VALID WOK! 🗿🔥\nBot: @'+j.result.username+'\nNama: '+j.result.first_name+'\n\nBot lu jalan!');
+else alert('❌ TOKEN SALAH WOK!\n'+j.description);
+}catch(e){alert('❌ Gagal cek! Cek internet lu! '+e.message)}
 }
 function copyConfig(){
+let t = document.getElementById('botToken').value;
 let g = document.getElementById('groupId').value;
-let b = document.getElementById('botUser').value;
+let v = document.getElementById('vercelToken').value;
 let o = document.getElementById('owner').value;
-let teks = 'const GROUP_ID = "'+g+'"; // Grup ID KIMZ HOSTING BOT TELE FREE\nconst BOT_USERNAME = "'+b+'";\nconst OWNER = "'+o+'";';
-navigator.clipboard.writeText(teks).then(()=>{alert('✅ Config ke copy wok! Paste ke index.js lu!\n\n'+teks)}).catch(()=>{alert(teks)});
+let teks = 'BOT_TOKEN='+t+'\nVERCEL_TOKEN_1='+v+'\nGROUP_ID='+g+'\nOWNER='+o+'\n\n// Paste di Vercel -> Settings -> Environment Variables!\n// KIMZ HOSTING BOT TELE FREE';
+navigator.clipboard.writeText(teks).then(()=>{alert('✅ Config ke copy wok!\n\nPaste di Vercel -> Settings -> Environment Variables!\n\n'+teks)}).catch(()=>{alert(teks)});
 }
-function keBot(){
-let b = document.getElementById('botUser').value || '@KimzHostingFreeBot';
-alert('Buka Telegram, cari: '+b+'\n\nKIMZ HOSTING BOT TELE FREE 🗿');
-}
-function scrollKeSetting(){document.getElementById('setting').scrollIntoView({behavior:'smooth'});}
+function keBot(){alert('Buka Telegram, cari bot lu yang token nya udah lu isi tadi! 🗿\n\nKIMZ HOSTING BOT TELE FREE');}
+function scrollKe(){document.getElementById('setting').scrollIntoView({behavior:'smooth'});}
 load();
 </script>
 </body>
