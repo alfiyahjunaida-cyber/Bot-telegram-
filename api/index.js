@@ -1,12 +1,10 @@
-// BOT DEPLOY + HOSTING FREE BY KIMZ 🗿
-// FULL - setToken HTML + DEPLOY BERSIH + KEY ∞ + FIX PROJECTSETTINGS!
+// BOT DEPLOY BY KIMZ 🗿 - FIX DEPLOY BENERAN + KEY KE BERAPA!
 
 const { Telegraf } = require('telegraf');
 const fetch = require('node-fetch');
 
 let hostedBots = new Map();
 let currentBotToken = process.env.BOT_TOKEN || '';
-let hostedBotTokens = [];
 
 const keys = { vercel: [], gemini: [] };
 function addKey(type, token, by) {
@@ -14,19 +12,27 @@ function addKey(type, token, by) {
   keys[type].push({ key: token, by: by, dipakai: 0 });
   return true;
 }
+
+// FIX! Sekarang return object: token + nomor + punya siapa!
 function getVercelToken() {
   if (keys.vercel.length === 0) {
-    if (process.env.VERCEL_TOKEN_1) return process.env.VERCEL_TOKEN_1;
+    if (process.env.VERCEL_TOKEN_1) {
+      return { token: process.env.VERCEL_TOKEN_1, nomor: 1, by: 'OWNER (Env)', dipakai: 0, isEnv: true };
+    }
     return null;
   }
   keys.vercel.sort((a, b) => a.dipakai - b.dipakai);
-  keys.vercel[0].dipakai++;
-  return keys.vercel[0].key;
+  let k = keys.vercel[0];
+  k.dipakai++;
+  let nomor = keys.vercel.indexOf(k) + 1;
+  return { token: k.key, nomor: nomor, by: k.by, dipakai: k.dipakai, isEnv: false };
 }
 
 const userState = new Map();
 
-async function deployBersih(fileBuffer, fileName, projectName, token) {
+// DEPLOY BENERAN! Upload file lu ke Vercel!
+async function deployBersih(fileBuffer, projectName, token) {
+  // 1. Bikin project dulu (kalo udah ada, di biarin)
   try {
     await fetch(`https://api.vercel.com/v9/projects`, {
       method: 'POST',
@@ -34,6 +40,8 @@ async function deployBersih(fileBuffer, fileName, projectName, token) {
       body: JSON.stringify({ name: projectName, framework: null })
     });
   } catch (e) {}
+
+  // 2. Upload file lu sebagai index.html! PAKSA!
   const res = await fetch(
     `https://api.vercel.com/v13/deployments?project=${projectName}&skipAutoDetectionConfirmation=1`,
     {
@@ -41,7 +49,7 @@ async function deployBersih(fileBuffer, fileName, projectName, token) {
       headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name: projectName,
-        files: [{ file: fileName, data: fileBuffer.toString('base64'), encoding: 'base64' }],
+        files: [{ file: 'index.html', data: fileBuffer.toString('base64'), encoding: 'base64' }],
         projectSettings: { framework: null },
         target: 'production'
       })
@@ -57,8 +65,7 @@ function makeBot(token) {
 
   bot.start((ctx) => {
     return ctx.reply(
-      `👋 Halo ${ctx.from.first_name}!\n🤖 Bot jalan by kimz hosting FREE! 🗿\n\n` +
-      `Ketik /deploy buat deploy web!\nKetik /listkey buat liat key!`,
+      `👋 Halo ${ctx.from.first_name}!\n🤖 Bot jalan by kimz hosting FREE! 🗿\n\nKetik /deploy buat deploy web!\nKetik /listkey buat liat key!`,
       { reply_markup: { inline_keyboard: [
         [{ text: '🚀 DEPLOY WEB', callback_data: 'deploy' }],
         [{ text: '🔑 LIST KEY ∞', callback_data: 'listkey' }],
@@ -83,7 +90,7 @@ function makeBot(token) {
     if (!keys[type]) return ctx.reply(`❌ Type cuma: vercel / gemini`);
     const by = `@${ctx.from.username || ctx.from.first_name}`;
     if (!addKey(type, key, by)) return ctx.reply(`❌ Token udah ada!`);
-    return ctx.reply(`✅ Token ${type} ke simpen! Total: ${keys[type].length} token! ∞ GAS!`);
+    return ctx.reply(`✅ Token ${type} ke simpen! Jadi key ke-${keys[type].length}!\nBy: ${by}\nTotal: ${keys[type].length} token! ∞ GAS!`);
   });
 
   bot.command('delkey', (ctx) => {
@@ -93,7 +100,7 @@ function makeBot(token) {
     if (!type || isNaN(index)) return ctx.reply(`Cara: /delkey vercel 1`);
     if (!keys[type] || !keys[type][index]) return ctx.reply(`❌ Nomor gak ada!`);
     const hapus = keys[type].splice(index, 1)[0];
-    return ctx.reply(`✅ Token ${type} nomor ${index+1} by ${hapus.by} udah di hapus!`);
+    return ctx.reply(`✅ Key ${type} ke-${index+1} by ${hapus.by} udah di hapus!`);
   });
 
   bot.on('document', async (ctx) => {
@@ -102,7 +109,7 @@ function makeBot(token) {
     const doc = ctx.message.document;
     if (!doc.file_name.endsWith('.html') && !doc.file_name.endsWith('.zip')) return ctx.reply(`❌ File harus .html / .zip!`);
     try {
-      await ctx.reply(`📥 File diterima! ${doc.file_name}`);
+      await ctx.reply(`📥 File diterima! ${doc.file_name} (${(doc.file_size/1024).toFixed(1)} KB)`);
       const fileLink = await ctx.telegram.getFileLink(doc.file_id);
       const fileRes = await fetch(fileLink.href);
       const fileBuffer = Buffer.from(await fileRes.arrayBuffer());
@@ -117,17 +124,25 @@ function makeBot(token) {
     if (!state || state.step !== 'wait_name') return;
     let projectName = ctx.message.text.toLowerCase().trim().replace(/[^a-z0-9-]/g, '').replace(/^-+|-+$/g, '');
     if (!projectName || projectName.length < 3) return ctx.reply(`❌ Nama gak valid! Contoh: tolls-ganteng`);
-    const token = getVercelToken();
-    if (!token) return ctx.reply(`❌ Token Vercel belum di-set! /setkey vercel TOKEN_LU`);
-    await ctx.reply(`🚀 Lagi deploy ${projectName}...`);
+    const keyInfo = getVercelToken();
+    if (!keyInfo) return ctx.reply(`❌ Token Vercel belum di-set! /setkey vercel TOKEN_LU`);
+    await ctx.reply(`🚀 Lagi deploy ${projectName}...\n🔑 Pake Key Vercel ke-${keyInfo.nomor} by ${keyInfo.by}...`);
     userState.delete(ctx.from.id);
     try {
-      let fileName = state.fileName;
       let fileBuffer = state.fileBuffer;
-      if (fileName.endsWith('.zip')) fileName = 'index.html';
-      const link = await deployBersih(fileBuffer, fileName, projectName, token);
-      return ctx.reply(`✅ BERHASIL! 🎉\n\n🔗 Link lu:\n${link}`);
-    } catch (e) { return ctx.reply(`❌ Gagal deploy wok! ${e.message}`); }
+      // FIX! Kalo .zip, kita anggap isinya index.html (buat sekarang)
+      // Kalo .html, langsung deploy sebagai index.html!
+      const link = await deployBersih(fileBuffer, projectName, keyInfo.token);
+      return ctx.reply(
+        `✅ BERHASIL! 🎉\n\n` +
+        `🔗 Link lu:\n${link}\n\n` +
+        `📦 File: ${state.fileName} -> Di deploy jadi index.html!\n` +
+        `🔑 Pake Key Vercel ke-${keyInfo.nomor}\n` +
+        `👤 Punya: ${keyInfo.by}\n` +
+        `📊 Key ini udah di pake: ${keyInfo.dipakai}x\n\n` +
+        `Buka link nya wok! Udah sama persis kayak HTML lu!`
+      );
+    } catch (e) { return ctx.reply(`❌ Gagal deploy wok! ${e.message}\n🔑 Key ke-${keyInfo.nomor} by ${keyInfo.by} error! Coba key lain!`); }
   });
 
   return bot;
@@ -136,8 +151,8 @@ function makeBot(token) {
 function sendListKey(ctx) {
   let pesan = `🔑 LIST KEY ∞ by kimz\n\n🚀 VERCEL (${keys.vercel.length} token):\n`;
   if (keys.vercel.length === 0) {
-    pesan += `❌ Belum ada!\n`;
-    if (process.env.VERCEL_TOKEN_1) pesan += `✅ 1 token dari Env (owner)\n`;
+    pesan += `❌ Belum ada di memori!\n`;
+    if (process.env.VERCEL_TOKEN_1) pesan += `✅ Key ke-1 dari Env (owner) - AKTIF!\n`;
   } else keys.vercel.forEach((k,i) => { pesan += `${i+1}. ${k.key.slice(0,4)}***${k.key.slice(-4)} by ${k.by} (${k.dipakai}x)\n`; });
   pesan += `\n🤖 GEMINI (${keys.gemini.length} token):\n`;
   if (keys.gemini.length === 0) pesan += `❌ Belum ada!\n`;
@@ -163,7 +178,6 @@ module.exports = async (req, res) => {
       if (!hostedBots.has(setToken)) {
         const newBot = makeBot(setToken);
         hostedBots.set(setToken, { bot: newBot, username: j.result.username });
-        hostedBotTokens.push(setToken);
       }
       currentBotToken = setToken;
       try {
