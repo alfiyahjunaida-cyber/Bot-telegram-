@@ -1,0 +1,10 @@
+{
+  "name": "bot-tele-hosting-free-by-kimz",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "jszip": "^3.10.1",
+    "telegraf": "^4.16.3"
+  }
+}
