@@ -1,10 +1,9 @@
 {
-  "name": "bot-tele-hosting-free-by-kimz",
+  "name": "bot-telegram",
   "version": "1.0.0",
-  "type": "module",
+  "main": "api/index.js",
   "dependencies": {
-    "axios": "^1.6.0",
-    "jszip": "^3.10.1",
-    "telegraf": "^4.16.3"
+    "telegraf": "^4.16.3",
+    "node-fetch": "^2.7.0"
   }
 }
