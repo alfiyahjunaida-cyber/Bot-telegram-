@@ -1,19 +1,23 @@
 // KIMZ HOSTING BOT TELE FREE 🗿
-// Deploy HTML -> Vercel, Nama Acak Otomatis, Custom Grup ID!
+// Pake TOKEN BOT dari Vercel Env! Bukan Link!
 
 const { Telegraf } = require('telegraf');
 const fetch = require('node-fetch');
 
-// ===== SETTING LU DISINI WOK! =====
-// Ganti sama Grup ID lu dari HTML tadi!
-const GROUP_ID = "-1004487166809"; // <-- GANTI INI SAMA GRUP ID LU!
+// ===== SETTING DARI VERCEL ENV =====
+// Di Vercel -> Settings -> Environment Variables isi:
+// BOT_TOKEN = Token dari @BotFather
+// VERCEL_TOKEN_1 = Token dari vercel.com/account/tokens
+// GROUP_ID = -100xxxx (Grup ID lu)
+// ================================
+
 const BOT_NAME = "KIMZ HOSTING BOT TELE FREE";
-const OWNER = "Kimz";
-const BOT_USERNAME = "@KimzHostingFreeBot";
-// ===================================
+const OWNER = process.env.OWNER || "Kimz";
+const GROUP_ID = process.env.GROUP_ID || "-1004487166809";
 
 let hostedBots = new Map();
 let currentBotToken = process.env.BOT_TOKEN || '';
+const userState = new Map();
 
 const keys = { vercel: [], gemini: [] };
 function addKey(type, token, by) {
@@ -70,7 +74,7 @@ async function deployBersih(fileBuffer, projectName, token) {
 }
 
 async function kirimKeGrup(botToken, pesan) {
-  if (!GROUP_ID || GROUP_ID === "-1004487166809" && false) return;
+  if (!GROUP_ID) return;
   try {
     await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
       method: 'POST',
@@ -78,6 +82,19 @@ async function kirimKeGrup(botToken, pesan) {
       body: JSON.stringify({ chat_id: GROUP_ID, text: pesan, parse_mode: 'HTML' })
     });
   } catch (e) { console.log('Gagal kirim ke grup:', e.message); }
+}
+
+function sendListKey(ctx) {
+  let pesan = `🔑 LIST KEY ∞ - ${BOT_NAME}\n\n🚀 VERCEL (${keys.vercel.length} token):\n`;
+  if (keys.vercel.length === 0) {
+    pesan += `❌ Belum ada di memori!\n`;
+    if (process.env.VERCEL_TOKEN_1) pesan += `✅ Key ke-1 dari Env (OWNER) - AKTIF!\n`;
+  } else keys.vercel.forEach((k,i) => { pesan += `${i+1}. ${k.key.slice(0,4)}***${k.key.slice(-4)} by ${k.by} (${k.dipakai}x)\n`; });
+  pesan += `\n🤖 GEMINI (${keys.gemini.length} token):\n`;
+  if (keys.gemini.length === 0) pesan += `❌ Belum ada!\n`;
+  else keys.gemini.forEach((k,i) => { pesan += `${i+1}. ${k.key.slice(0,4)}***${k.key.slice(-4)} by ${k.by}\n`; });
+  pesan += `\n🆔 Grup ID: ${GROUP_ID}\n👤 Owner: ${OWNER}\nMau nyumbang? /setkey vercel TOKEN_LU`;
+  return ctx.reply(pesan);
 }
 
 function makeBot(token) {
@@ -91,11 +108,12 @@ function makeBot(token) {
       `Kirim file HTML lu, langsung jadi link web!\n\n` +
       `✅ 100% FREE\n` +
       `✅ Nama web acak otomatis: kimz-xxxxxx\n` +
-      `✅ Notif deploy masuk ke Grup ID: ${GROUP_ID}\n\n` +
+      `✅ Token Bot: Pake token lu sendiri!\n` +
+      `✅ Grup ID: ${GROUP_ID}\n\n` +
       `Klik [ 🚀 DEPLOY WEB ] di bawah wok!`,
       { reply_markup: { inline_keyboard: [
         [{ text: '🚀 DEPLOY WEB (Nama Acak)', callback_data: 'deploy' }],
-        [{ text: '⚙️ INFO GRUP ID', callback_data: 'infogrup' }],
+        [{ text: '⚙️ INFO TOKEN & GRUP ID', callback_data: 'infogrup' }],
         [{ text: '🔑 LIST KEY ∞', callback_data: 'listkey' }],
       ]}}
     );
@@ -112,10 +130,12 @@ function makeBot(token) {
     return ctx.reply(
       `⚙️ SETTING ${BOT_NAME}\n\n` +
       `🆔 Grup ID: ${GROUP_ID}\n` +
-      `🤖 Bot: ${BOT_USERNAME}\n` +
-      `👤 Owner: ${OWNER}\n\n` +
-      `Mau ganti Grup ID? Ganti di api/index.js bagian atas wok!\n` +
-      `const GROUP_ID = "-100xxxx";`
+      `👤 Owner: ${OWNER}\n` +
+      `🤖 Token Bot: ${token.slice(0,8)}***${token.slice(-4)} (Aman, di Env Vercel!)\n` +
+      `🔑 Vercel Token: ${process.env.VERCEL_TOKEN_1 ? '✅ Udah di set!' : '❌ Belum di set!'}\n\n` +
+      `Mau ganti Token / Grup ID?\n` +
+      `Vercel -> Settings -> Environment Variables!\n` +
+      `BOT_TOKEN, VERCEL_TOKEN_1, GROUP_ID`
     );
   });
 
@@ -125,13 +145,13 @@ function makeBot(token) {
     userState.set(ctx.from.id, { step: 'wait_file' });
     return ctx.reply(`🚀 GAS DEPLOY! Kirim file .html lu sekarang wok!`);
   });
-
-  bot.command('setgroup', (ctx) => {
-    // Cuma owner yang bisa ganti grup ID dari bot!
-    const args = ctx.message.text.split(' ');
-    const newId = args[1];
-    if (!newId) return ctx.reply(`Cara: /setgroup -100123456789\nGrup ID sekarang: ${GROUP_ID}`);
-    return ctx.reply(`⚠️ Grup ID di bot ini di setting di index.js wok!\nGrup ID sekarang: ${GROUP_ID}\nYang lu kirim: ${newId}\n\nGanti di GitHub -> api/index.js -> const GROUP_ID = "${newId}";\nTerus Redeploy di Vercel!`);
+  bot.command('cekbot', async (ctx) => {
+    try {
+      const r = await fetch(`https://api.telegram.org/bot${token}/getMe`);
+      const j = await r.json();
+      if (j.ok) return ctx.reply(`✅ TOKEN VALID WOK! 🗿\nBot: @${j.result.username}\nNama: ${j.result.first_name}\nGrup ID: ${GROUP_ID}\nOwner: ${OWNER}`);
+      else return ctx.reply(`❌ Token error: ${j.description}`);
+    } catch (e) { return ctx.reply(`❌ Gagal cek: ${e.message}`); }
   });
 
   bot.command('setkey', (ctx) => {
@@ -163,7 +183,7 @@ function makeBot(token) {
     
     const projectName = bikinNamaAcak();
     const keyInfo = getVercelToken();
-    if (!keyInfo) return ctx.reply(`❌ Token Vercel belum di-set! /setkey vercel TOKEN_LU`);
+    if (!keyInfo) return ctx.reply(`❌ Token Vercel belum di-set!\nVercel -> Settings -> Environment Variables -> VERCEL_TOKEN_1`);
 
     try {
       await ctx.reply(`📥 File diterima! ${doc.file_name} (${(doc.file_size/1024).toFixed(1)} KB)\n🎲 Nama acak: ${projectName}\n🚀 Lagi deploy...\n🔑 Pake Key Vercel ke-${keyInfo.nomor} by ${keyInfo.by}...`);
@@ -174,7 +194,6 @@ function makeBot(token) {
 
       const link = await deployBersih(fileBuffer, projectName, keyInfo.token);
 
-      // Kirim notif ke Grup ID custom lu!
       await kirimKeGrup(token,
         `🚀 <b>DEPLOY BARU! - ${BOT_NAME}</b>\n\n` +
         `👤 User: @${ctx.from.username || ctx.from.first_name}\n` +
@@ -210,20 +229,6 @@ function makeBot(token) {
   return bot;
 }
 
-function sendListKey(ctx) {
-  let pesan = `🔑 LIST KEY ∞ - ${BOT_NAME}\n\n🚀 VERCEL (${keys.vercel.length} token):\n`;
-  if (keys.vercel.length === 0) {
-    pesan += `❌ Belum ada di memori!\n`;
-    if (process.env.VERCEL_TOKEN_1) pesan += `✅ Key ke-1 dari Env (owner) - AKTIF!\n`;
-  } else keys.vercel.forEach((k,i) => { pesan += `${i+1}. ${k.key.slice(0,4)}***${k.key.slice(-4)} by ${k.by} (${k.dipakai}x)\n`; });
-  pesan += `\n🤖 GEMINI (${keys.gemini.length} token):\n`;
-  if (keys.gemini.length === 0) pesan += `❌ Belum ada!\n`;
-  else keys.gemini.forEach((k,i) => { pesan += `${i+1}. ${k.key.slice(0,4)}***${k.key.slice(-4)} by ${k.by}\n`; });
-  pesan += `\n🆔 Grup ID: ${GROUP_ID}\nMau nyumbang? /setkey vercel TOKEN_LU`;
-  return ctx.reply(pesan);
-}
-
-const userState = new Map();
 let mainBot = null;
 if (currentBotToken) {
   mainBot = makeBot(currentBotToken);
@@ -247,7 +252,7 @@ module.exports = async (req, res) => {
         await fetch(`https://api.telegram.org/bot${setToken}/sendMessage`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ chat_id: GROUP_ID, text: `🗿 Bot baru jalan!\n🤖 ${BOT_NAME}\n@${j.result.username}\nBy hosting free kimz!\nGrup ID: ${GROUP_ID}` })
+          body: JSON.stringify({ chat_id: GROUP_ID, text: `🗿 Bot baru jalan!\n🤖 ${BOT_NAME}\n@${j.result.username}\nBy ${OWNER}!\nGrup ID: ${GROUP_ID}` })
         });
       } catch (e) {}
       return res.status(200).json({ ok: true, totalBot: hostedBots.size, username: j.result.username, groupId: GROUP_ID });
@@ -275,5 +280,8 @@ module.exports = async (req, res) => {
     return res.status(200).send('OK');
   }
 
-  return res.status(200).send(`${BOT_NAME} jalan wok! 🗿 Grup ID: ${GROUP_ID}`);
+  if (!process.env.BOT_TOKEN) {
+    return res.status(200).send(`❌ BOT_TOKEN belum di set wok!\nVercel -> Settings -> Environment Variables -> BOT_TOKEN = Token dari @BotFather\n\n${BOT_NAME} 🗿`);
+  }
+  return res.status(200).send(`${BOT_NAME} jalan wok! 🗿 Grup ID: ${GROUP_ID} Owner: ${OWNER}`);
 };
