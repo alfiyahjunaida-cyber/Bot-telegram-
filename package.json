@@ -1,5 +1,5 @@
 {
-  "name": "bot-telegram",
+  "name": "kimz-hosting-bot-tele-free",
   "version": "1.0.0",
   "main": "api/index.js",
   "dependencies": {
