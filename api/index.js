@@ -1,15 +1,16 @@
 // KIMZ HOSTING BOT TELE FREE 🗿
-// Pake TOKEN BOT dari Vercel Env! Bukan Link!
+// api/index.js - FINAL FULL CODE!
 
 const { Telegraf } = require('telegraf');
 const fetch = require('node-fetch');
 
 // ===== SETTING DARI VERCEL ENV =====
-// Di Vercel -> Settings -> Environment Variables isi:
-// BOT_TOKEN = Token dari @BotFather
+// Vercel -> Settings -> Environment Variables:
+// BOT_TOKEN = Token dari @BotFather (BUKAN LINK!)
 // VERCEL_TOKEN_1 = Token dari vercel.com/account/tokens
-// GROUP_ID = -100xxxx (Grup ID lu)
-// ================================
+// GROUP_ID = -100xxxx
+// OWNER = Kimz
+// =====================================
 
 const BOT_NAME = "KIMZ HOSTING BOT TELE FREE";
 const OWNER = process.env.OWNER || "Kimz";
@@ -19,7 +20,9 @@ let hostedBots = new Map();
 let currentBotToken = process.env.BOT_TOKEN || '';
 const userState = new Map();
 
+// ===== KEY SYSTEM ∞ =====
 const keys = { vercel: [], gemini: [] };
+
 function addKey(type, token, by) {
   if (keys[type].some(k => k.key === token)) return false;
   keys[type].push({ key: token, by: by, dipakai: 0 });
@@ -100,6 +103,7 @@ function sendListKey(ctx) {
 function makeBot(token) {
   const bot = new Telegraf(token);
 
+  // ===== /start + MENU =====
   bot.start((ctx) => {
     return ctx.reply(
       `👋 Halo ${ctx.from.first_name}!\n` +
@@ -108,13 +112,14 @@ function makeBot(token) {
       `Kirim file HTML lu, langsung jadi link web!\n\n` +
       `✅ 100% FREE\n` +
       `✅ Nama web acak otomatis: kimz-xxxxxx\n` +
-      `✅ Token Bot: Pake token lu sendiri!\n` +
+      `✅ Deploy 5 detik langsung jadi!\n` +
       `✅ Grup ID: ${GROUP_ID}\n\n` +
-      `Klik [ 🚀 DEPLOY WEB ] di bawah wok!`,
+      `Klik menu di bawah wok!`,
       { reply_markup: { inline_keyboard: [
         [{ text: '🚀 DEPLOY WEB (Nama Acak)', callback_data: 'deploy' }],
         [{ text: '⚙️ INFO TOKEN & GRUP ID', callback_data: 'infogrup' }],
         [{ text: '🔑 LIST KEY ∞', callback_data: 'listkey' }],
+        [{ text: '💬 CHAT OWNER', callback_data: 'owner' }],
       ]}}
     );
   });
@@ -131,20 +136,25 @@ function makeBot(token) {
       `⚙️ SETTING ${BOT_NAME}\n\n` +
       `🆔 Grup ID: ${GROUP_ID}\n` +
       `👤 Owner: ${OWNER}\n` +
-      `🤖 Token Bot: ${token.slice(0,8)}***${token.slice(-4)} (Aman, di Env Vercel!)\n` +
-      `🔑 Vercel Token: ${process.env.VERCEL_TOKEN_1 ? '✅ Udah di set!' : '❌ Belum di set!'}\n\n` +
-      `Mau ganti Token / Grup ID?\n` +
-      `Vercel -> Settings -> Environment Variables!\n` +
-      `BOT_TOKEN, VERCEL_TOKEN_1, GROUP_ID`
+      `🤖 Token Bot: ${token.slice(0,8)}***${token.slice(-4)} (Aman di Env!)\n` +
+      `🔑 Vercel Token: ${process.env.VERCEL_TOKEN_1 ? '✅ Udah di set!' : '❌ Belum di set! /setkey vercel TOKEN_LU'}\n\n` +
+      `Mau ganti? Vercel -> Settings -> Environment Variables!`
     );
   });
 
   bot.action('listkey', (ctx) => { ctx.answerCbQuery(); return sendListKey(ctx); });
+  bot.action('owner', (ctx) => {
+    ctx.answerCbQuery();
+    return ctx.reply(`💬 Chat owner wok!\n👤 Owner: ${OWNER}\n🆔 Grup ID: ${GROUP_ID}\n\nChat aja di grup!`);
+  });
+
+  // ===== COMMAND =====
   bot.command('listkey', (ctx) => sendListKey(ctx));
   bot.command('deploy', (ctx) => {
     userState.set(ctx.from.id, { step: 'wait_file' });
     return ctx.reply(`🚀 GAS DEPLOY! Kirim file .html lu sekarang wok!`);
   });
+
   bot.command('cekbot', async (ctx) => {
     try {
       const r = await fetch(`https://api.telegram.org/bot${token}/getMe`);
@@ -158,11 +168,11 @@ function makeBot(token) {
     const args = ctx.message.text.split(' ');
     const type = args[1] ? args[1].toLowerCase() : null;
     const key = args[2];
-    if (!type || !key) return ctx.reply(`Cara: /setkey vercel TOKEN_LU`);
+    if (!type || !key) return ctx.reply(`Cara: /setkey vercel TOKEN_LU\nContoh: /setkey vercel abc123xxx\n\nBisa juga: /setkey gemini TOKEN_LU`);
     if (!keys[type]) return ctx.reply(`❌ Type cuma: vercel / gemini`);
     const by = `@${ctx.from.username || ctx.from.first_name}`;
     if (!addKey(type, key, by)) return ctx.reply(`❌ Token udah ada!`);
-    return ctx.reply(`✅ Token ${type} ke simpen! Jadi key ke-${keys[type].length}!\nBy: ${by}`);
+    return ctx.reply(`✅ Token ${type} ke simpen! Jadi key ke-${keys[type].length}!\nBy: ${by}\n\nCek: /listkey`);
   });
 
   bot.command('delkey', (ctx) => {
@@ -175,15 +185,16 @@ function makeBot(token) {
     return ctx.reply(`✅ Key ${type} ke-${index+1} by ${hapus.by} udah di hapus!`);
   });
 
+  // ===== DEPLOY FILE =====
   bot.on('document', async (ctx) => {
     const state = userState.get(ctx.from.id);
-    if (!state || state.step !== 'wait_file') return ctx.reply(`Klik dulu [ 🚀 DEPLOY WEB ] wok!`);
+    if (!state || state.step !== 'wait_file') return ctx.reply(`Klik dulu [ 🚀 DEPLOY WEB ] wok!\nAtau ketik /deploy`);
     const doc = ctx.message.document;
     if (!doc.file_name.endsWith('.html') && !doc.file_name.endsWith('.zip')) return ctx.reply(`❌ File harus .html / .zip!`);
-    
+
     const projectName = bikinNamaAcak();
     const keyInfo = getVercelToken();
-    if (!keyInfo) return ctx.reply(`❌ Token Vercel belum di-set!\nVercel -> Settings -> Environment Variables -> VERCEL_TOKEN_1`);
+    if (!keyInfo) return ctx.reply(`❌ Token Vercel belum di-set!\n\nCara 1: /setkey vercel TOKEN_LU\nCara 2: Vercel -> Settings -> Env -> VERCEL_TOKEN_1`);
 
     try {
       await ctx.reply(`📥 File diterima! ${doc.file_name} (${(doc.file_size/1024).toFixed(1)} KB)\n🎲 Nama acak: ${projectName}\n🚀 Lagi deploy...\n🔑 Pake Key Vercel ke-${keyInfo.nomor} by ${keyInfo.by}...`);
@@ -215,9 +226,9 @@ function makeBot(token) {
         `🆔 Notif udah masuk ke Grup ID: ${GROUP_ID}\n\n` +
         `Buka link nya wok! Udah sama persis kayak HTML lu!`
       );
-    } catch (e) { 
+    } catch (e) {
       userState.delete(ctx.from.id);
-      return ctx.reply(`❌ Gagal deploy wok! ${e.message}\n🔑 Key ke-${keyInfo.nomor} by ${keyInfo.by} error!`); 
+      return ctx.reply(`❌ Gagal deploy wok! ${e.message}\n🔑 Key ke-${keyInfo.nomor} by ${keyInfo.by} error! Coba key lain / /setkey vercel TOKEN_BARU`);
     }
   });
 
